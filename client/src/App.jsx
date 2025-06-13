@@ -1,9 +1,12 @@
+import React from 'react'
+import Register from './pages/Register'
+
 function App() {
   return (
-    <div className="App">
-      Student Expense Tracker
+    <div>
+      <Register />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
