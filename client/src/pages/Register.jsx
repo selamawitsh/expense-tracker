@@ -1,6 +1,7 @@
 import React from "react";
 import "../styles/register.css";
 import loginImage from "../assets/login.png";
+import { Link } from "react-router-dom";
 
 function Register() {
   return (
@@ -50,7 +51,7 @@ function Register() {
 
             <button type="submit">Register</button>
             <p>
-              Already have an account? <a href="#">Login</a>
+              Already have an account? <Link to="/login">Login</Link>
             </p>
           </form>
         </div>
