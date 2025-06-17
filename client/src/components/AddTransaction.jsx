@@ -1,6 +1,16 @@
 import React, { useState } from "react";
 import "../styles/AddTransaction.css";
 
+const categories = [
+  { name: "Food", colorClass: "cat-food" },
+  { name: "Other", colorClass: "cat-other" },
+  { name: "Transportation", colorClass: "cat-transport" },
+  { name: "Work", colorClass: "cat-work" },
+  { name: "Education", colorClass: "cat-education" },
+  { name: "Family", colorClass: "cat-family" },
+  { name: "Entertainment", colorClass: "cat-entertainment" },
+];
+
 const AddTransaction = ({ addTransaction, onClose }) => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
@@ -25,9 +35,8 @@ const AddTransaction = ({ addTransaction, onClose }) => {
     setCategory("");
     setDate("");
     setAmount("");
-    onClose && onClose(); 
+    onClose && onClose();
   };
-
 
   return (
     <div className="add-transaction">
@@ -47,13 +56,32 @@ const AddTransaction = ({ addTransaction, onClose }) => {
 
           <div className="form-group">
             <label htmlFor="category">Category</label>
-            <input
-              type="text"
-              id="category"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              placeholder="Enter category"
-            />
+            <div className="custom-select-wrapper">
+              <select
+                id="category"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                className="custom-select"
+              >
+                <option value="">Select category</option>
+                {categories.map((cat) => (
+                  <option key={cat.name} value={cat.name}>
+                    {cat.name}
+                  </option>
+                ))}
+              </select>
+              {category && (
+                <span
+                  className={`cat-badge ${
+                    categories.find((catObj) => catObj.name === category)
+                      ?.colorClass
+                  }`}
+                  style={{ marginLeft: 8 }}
+                >
+                  {category}
+                </span>
+              )}
+            </div>
           </div>
 
           <div className="form-group">

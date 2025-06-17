@@ -2,6 +2,28 @@ import React, { useState } from "react";
 import AddTransaction from "../components/AddTransaction.jsx";
 import "../styles/ExpenseTracker.css";
 
+// Helper for colored category badges
+function getCategoryClass(category) {
+  switch (category) {
+    case "Food":
+      return "cat-food";
+    case "Other":
+      return "cat-other";
+    case "Transportation":
+      return "cat-transport";
+    case "Work":
+      return "cat-work";
+    case "Education":
+      return "cat-education";
+    case "Family":
+      return "cat-family";
+    case "Entertainment":
+      return "cat-entertainment";
+    default:
+      return "";
+  }
+}
+
 const initialTransactions = [
   {
     title: "Groceries",
@@ -18,7 +40,6 @@ const initialTransactions = [
     amount: -5.75,
   },
 ];
-
 
 function ExpenseTracker() {
   const [transactions, setTransactions] = useState(initialTransactions);
@@ -68,7 +89,9 @@ function ExpenseTracker() {
                 <b>{tx.title}</b>
               </td>
               <td>
-                <span className="icon">{tx.icon}</span> {tx.category}
+                <span className={`cat-badge ${getCategoryClass(tx.category)}`}>
+                  {tx.category}
+                </span>
               </td>
               <td>{tx.date}</td>
               <td
@@ -88,8 +111,8 @@ function ExpenseTracker() {
       {showForm && (
         <AddTransaction
           addTransaction={(tx) => {
-            handleAddTransaction(tx); 
-            setShowForm(false); 
+            handleAddTransaction(tx);
+            setShowForm(false);
           }}
           onClose={() => setShowForm(false)}
         />
