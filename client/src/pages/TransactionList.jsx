@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "../styles/TransactionList.css";
+import { getCategoryClass } from "../utils/categoryHelpers";
+import Navbar from "../components/Navbar.jsx";
 
 const initialTransactions = [
   {
@@ -25,31 +27,7 @@ const initialTransactions = [
     title: "Part-time job",
     category: "Work",
     amount: 200,
-  },
-  {
-    date: "June 4, 2025",
-    title: "Textbooks",
-    category: "Education",
-    amount: -120,
-  },
-  {
-    date: "June 3, 2025",
-    title: "Coffee shop",
-    category: "Food",
-    amount: -15,
-  },
-  {
-    date: "June 2, 2025",
-    title: "Monthly allowance",
-    category: "Family",
-    amount: 300,
-  },
-  {
-    date: "June 1, 2025",
-    title: "Movie tickets",
-    category: "Entertainment",
-    amount: -45,
-  },
+  }
 ];
 
 const categories = [
@@ -63,26 +41,6 @@ const categories = [
   "Entertainment",
 ];
 
-function getCategoryClass(category) {
-  switch (category) {
-    case "Food":
-      return "cat-food";
-    case "Other":
-      return "cat-other";
-    case "Transport":
-      return "cat-transport";
-    case "Work":
-      return "cat-work";
-    case "Education":
-      return "cat-education";
-    case "Family":
-      return "cat-family";
-    case "Entertainment":
-      return "cat-entertainment";
-    default:
-      return "";
-  }
-}
 
 export default function TransactionList() {
   const [type, setType] = useState("All");
@@ -120,17 +78,21 @@ export default function TransactionList() {
   };
 
   return (
-    <div className="transaction-list-container">
+    <>
+    <Navbar />
+     <div className="transaction-list-container">
       <div className="transaction-list-header">
         <h2>Transactions</h2>
         <span
           className="filter-icon"
-          onClick={() => setShowFilter((prev) => !prev)}
+          onClick={() => setShowFilter(!showFilter)}
           style={{ cursor: "pointer" }}
         >
           ▼ Filter
         </span>
       </div>
+
+
       {showFilter && (
         <div className="filter-box">
           <div className="filter-row">
@@ -143,18 +105,21 @@ export default function TransactionList() {
                 >
                   All
                 </button>
+
                 <button
                   className={type === "Income" ? "active" : ""}
                   onClick={() => setType("Income")}
                 >
                   Income
                 </button>
+
                 <button
                   className={type === "Expense" ? "active" : ""}
                   onClick={() => setType("Expense")}
                 >
                   Expense
                 </button>
+                
               </div>
             </div>
             <div className="filter-group">
@@ -196,6 +161,9 @@ export default function TransactionList() {
           </div>
         </div>
       )}
+
+
+
       <table className="transaction-table">
         <thead>
           <tr>
@@ -226,7 +194,11 @@ export default function TransactionList() {
           ))}
         </tbody>
       </table>
+
+
     </div>
+    </>
+   
   );
   
 }
