@@ -2,6 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import connectDB from './src/config/db.js';
+import route from './src/routes/transaction.route.js';
+
 
 dotenv.config();
 
@@ -12,9 +14,8 @@ app.use(express.json());
 
 connectDB()
 
-app.get('/', (req, res) => {
-  res.send('Welcome to the server!');   
-});
+app.use("/api/transaction", route);
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port http://localhost:${PORT}`);
